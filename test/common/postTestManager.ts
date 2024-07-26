@@ -2,7 +2,7 @@
 import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
 
-import { BlogUpdateType, PostToBlogCreateModel } from '../../src/features/blogs/types/input';
+import { BlogUpdateType } from '../../src/features/blogs/types/input';
 import { PostCreateModel } from '../../src/features/posts/types/input';
 
 export class PostTestManager {
@@ -37,19 +37,6 @@ export class PostTestManager {
     const authData = adminData ?? this.adminData;
     return request(this.app.getHttpServer())
       .put(`/posts/${postId}`)
-      .auth(authData.login, authData.password)
-      .send(postData)
-      .expect(status);
-  }
-  async createPostToBlog(
-    postData: PostToBlogCreateModel,
-    blogId: string,
-    status: number,
-    adminData?: { login: string; password: string },
-  ) {
-    const authData = adminData ?? this.adminData;
-    return request(this.app.getHttpServer())
-      .post(`/blogs/${blogId}/posts`)
       .auth(authData.login, authData.password)
       .send(postData)
       .expect(status);

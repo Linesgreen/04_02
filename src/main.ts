@@ -7,6 +7,7 @@ import { appSettings } from './settings/aplly-app-setting';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   //Выносим неастройки для удобства тестов
+
   appSettings(app);
   await app.listen(5001);
 }
